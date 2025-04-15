@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { deleteTodo, fetchTodos } from "@/store/todo/operations";
+import { fetchTodos } from "@/store/todo/operations";
+import TodoTask from "./TodoTask";
 
 export default function TodoList() {
   const dispatch = useAppDispatch();
@@ -20,17 +21,8 @@ export default function TodoList() {
       ) : (
         <ul className="space-y-2">
           {items.map((todo) => (
-            <li
-              key={todo.id}
-              className="flex justify-between items-center border p-2 rounded"
-            >
-              <span>{todo.title}</span>
-              <button
-                onClick={() => dispatch(deleteTodo(todo.id))}
-                className="text-red-500 hover:text-red-700 cursor-pointer"
-              >
-                Delete
-              </button>
+            <li key={todo.id}>
+              <TodoTask todo={todo} />
             </li>
           ))}
         </ul>

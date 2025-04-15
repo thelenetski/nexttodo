@@ -32,7 +32,10 @@ const todosSlice = createSlice({
         state.error = action.error.message ?? "Something went wrong";
       })
       .addCase(addTodo.fulfilled, (state, action) => {
-        state.items.unshift(action.payload);
+        state.items.unshift({
+          ...action.payload,
+          id: Math.floor(10000000 + Math.random() * 90000000),
+        });
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
         state.items = state.items.filter((todo) => todo.id !== action.payload);
