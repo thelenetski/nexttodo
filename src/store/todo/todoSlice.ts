@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Todo } from "@/types/types";
-import { addTodo, deleteTodo, fetchTodos } from "./operations";
+import { addTodo, deleteTodo, editTodo, fetchTodos } from "./operations";
 
 interface TodosState {
   items: Todo[];
@@ -37,10 +37,21 @@ const todosSlice = createSlice({
           id: Math.floor(10000000 + Math.random() * 90000000),
         });
       })
+      .addCase(editTodo.fulfilled, (state, action) => {
+        const task = state.items.find((t) => t.id === action.payload.id);
+
+        if (task) {
+          task.completed = !task.completed;
+        }
+      })
+      .addCase(editTodo.rejected, (state, action) => {
+        state.error = action.error.message ?? "Something went wrong";
+      })
       .addCase(deleteTodo.fulfilled, (state, action) => {
         state.items = state.items.filter((todo) => todo.id !== action.payload);
       });
   },
 });
 
+// export const { taskDone } = todosSlice.actions;
 export const todosReducer = todosSlice.reducer;

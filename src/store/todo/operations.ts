@@ -21,6 +21,16 @@ export const addTodo = createAsyncThunk<Todo, string>(
   }
 );
 
+export const editTodo = createAsyncThunk<Todo, Todo>(
+  "todos/editTodo",
+  async (task) => {
+    const res = await axiosInstance.patch<Todo>(`/todos/${task.id}`, {
+      ...task,
+    });
+    return res.data;
+  }
+);
+
 export const deleteTodo = createAsyncThunk<number, number>(
   "todos/deleteTodo",
   async (id) => {
