@@ -29,10 +29,10 @@ export default function AddTodo() {
     >
       <div className="w-full flex justify-between">
         <input
-          className="w-70 text-gray-700 focus:outline-none p-3"
+          className="w-full text-gray-700 focus:outline-none p-3"
           id="text"
           type="text"
-          {...register("text", { required: "Task is required" })}
+          {...register("text", { required: "empty" })}
           placeholder="Add a new task"
         />
         {errors.text && (
