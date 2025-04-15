@@ -1,0 +1,24 @@
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+  0% {
+    box-shadow: 20px 0 #055731, -20px 0 #065c4222;
+    background: #03381f;
+  }
+  33% {
+    box-shadow: 20px 0 #03381f, -20px 0 #065c4222;
+    background: #065c4222;
+  }
+  66% {
+    box-shadow: 20px 0 #065c4222, -20px 0 #03381f;
+    background: #065c4222;
+  }
+  100% {
+    box-shadow: 20px 0 #065c4222, -20px 0 #03381f;
+    background: #03381f;
+  }
+}

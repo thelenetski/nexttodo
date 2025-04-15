@@ -5,19 +5,25 @@ import { addTodo, deleteTodo, editTodo, fetchTodos } from "./operations";
 interface TodosState {
   items: Todo[];
   loading: boolean;
+  loadingTask: number | null;
   error: string | null;
 }
 
 const initialState: TodosState = {
   items: [],
   loading: false,
+  loadingTask: null,
   error: null,
 };
 
 const todosSlice = createSlice({
   name: "todos",
   initialState,
-  reducers: {},
+  reducers: {
+    loadingStart(state, action) {
+      state.loadingTask = action.payload.id;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTodos.pending, (state) => {
@@ -42,6 +48,7 @@ const todosSlice = createSlice({
         });
       })
       .addCase(editTodo.fulfilled, (state, action) => {
+        state.loadingTask = null;
         const task = state.items.find((t) => t.id === action.payload.id);
 
         if (task) {
@@ -54,6 +61,7 @@ const todosSlice = createSlice({
         });
       })
       .addCase(editTodo.rejected, (state, action) => {
+        state.loadingTask = null;
         state.error = action.error.message ?? "Something went wrong";
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
@@ -62,5 +70,5 @@ const todosSlice = createSlice({
   },
 });
 
-// export const { taskDone } = todosSlice.actions;
+export const { loadingStart } = todosSlice.actions;
 export const todosReducer = todosSlice.reducer;
