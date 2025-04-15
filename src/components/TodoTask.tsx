@@ -16,10 +16,14 @@ export default function TodoTask({ todo }: Props) {
   };
 
   return (
-    <div className="flex justify-between items-center border border-gray-300 p-3 rounded shadow-lg">
+    <div
+      className={`flex justify-between items-center border border-gray-300 p-3 rounded shadow-lg ${
+        todo.completed && "bg-green-200"
+      }`}
+    >
       <span
         className={`cursor-pointer ${
-          todo.completed ? "line-through text-gray-400" : "text-gray-700"
+          todo.completed ? "line-through text-green-600" : "text-gray-700"
         }`}
         onClick={toggleHandler}
       >

@@ -26,6 +26,10 @@ const todosSlice = createSlice({
       .addCase(fetchTodos.fulfilled, (state, action) => {
         state.loading = false;
         state.items = action.payload;
+        state.items.sort((a, b) => {
+          if (a.completed === b.completed) return 0;
+          return a.completed ? 1 : -1;
+        });
       })
       .addCase(fetchTodos.rejected, (state, action) => {
         state.loading = false;
@@ -43,6 +47,11 @@ const todosSlice = createSlice({
         if (task) {
           task.completed = !task.completed;
         }
+
+        state.items.sort((a, b) => {
+          if (a.completed === b.completed) return 0;
+          return a.completed ? 1 : -1;
+        });
       })
       .addCase(editTodo.rejected, (state, action) => {
         state.error = action.error.message ?? "Something went wrong";
